@@ -1,5 +1,7 @@
 package com.gamewerks.blocky.engine;
 
+import java.util.Random;
+
 import com.gamewerks.blocky.util.Constants;
 import com.gamewerks.blocky.util.Position;
 
@@ -21,7 +23,9 @@ public class BlockyGame {
     
     private void trySpawnBlock() {
         if (activePiece == null) {
-            activePiece = new Piece(PieceKind.I, new Position(1, Constants.BOARD_WIDTH / 2 - 2));
+        	Random rando = new Random(); 
+        	int letter = rando.nextInt(7);
+            activePiece = new Piece(PieceKind.ALL[letter], new Position(1, Constants.BOARD_WIDTH / 2 - 2));
             if (board.collides(activePiece)) {
                 System.exit(0);
             }
