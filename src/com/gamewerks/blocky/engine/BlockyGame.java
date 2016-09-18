@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.gamewerks.blocky.util.Constants;
 import com.gamewerks.blocky.util.Position;
+import com.gamewerks.blocky.util.Shuffle;
 
 public class BlockyGame {
     private static final int LOCK_DELAY_LIMIT = 30;
@@ -23,9 +24,7 @@ public class BlockyGame {
     
     private void trySpawnBlock() {
         if (activePiece == null) {
-        	Random rando = new Random(); 
-        	int letter = rando.nextInt(7);
-            activePiece = new Piece(PieceKind.ALL[letter], new Position(1, Constants.BOARD_WIDTH / 2 - 2));
+            activePiece = new Piece(PieceKind.ALL[Shuffle.getNumber()], new Position(1, Constants.BOARD_WIDTH / 2 - 2));
             if (board.collides(activePiece)) {
                 System.exit(0);
             }
@@ -43,6 +42,7 @@ public class BlockyGame {
             break;
         case RIGHT:
             nextPos = activePiece.getPosition().add(0, 1);
+            break;
         default:
             throw new IllegalStateException("Unrecognized direction: " + movement.name());
         }
@@ -73,6 +73,7 @@ public class BlockyGame {
     
     public void step() {
         trySpawnBlock();
+        processMovement();
         processGravity();
         processClearedLines();
     }
