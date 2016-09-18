@@ -9,7 +9,7 @@ import com.gamewerks.blocky.engine.BlockyGame;
 import com.gamewerks.blocky.engine.Direction;
 import com.gamewerks.blocky.gfx.BlockyPanel;
 
-import javafx.scene.input.KeyCode;
+//import java.awt.event.KeyCode;
 
 public class Blocky {
     private static final int FPS = 10;
