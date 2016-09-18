@@ -48,9 +48,27 @@ public class BlockyGame {
         }
         if (!board.collides(activePiece.getLayout(), nextPos)) {
             activePiece.moveTo(nextPos);
+        } else {
+            if (lockCounter < LOCK_DELAY_LIMIT) {
+                lockCounter += 1;
+            } else {
+                board.addToWell(activePiece);
+                lockCounter = 0;
+                activePiece = null;
+            }
         }
     }
     
+    public void rotatePiece(boolean dir) { 
+    	activePiece.rotate(dir);
+    	Position nextPos = activePiece.getPosition();
+    	if (!board.collides(activePiece.getLayout(), nextPos)){
+    		return;
+    	} else {
+    		activePiece.rotate(!dir);
+    	}
+    }
+
     private void processGravity() {
         Position nextPos = activePiece.getPosition().add(1, 0);
         if (!board.collides(activePiece.getLayout(), nextPos)) {
@@ -84,5 +102,6 @@ public class BlockyGame {
     
     public Piece getActivePiece() { return activePiece; }
     public void setDirection(Direction movement) { this.movement = movement; }
-    public void rotatePiece(boolean dir) { activePiece.rotate(dir); }
+    
+    		
 }

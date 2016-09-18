@@ -19,8 +19,10 @@ public class Shuffle {
 
     public static int getNumber(){
         if (index > 6){
-            shuffle();
             index = 0;
+        }
+        if (index == 0) {
+        	shuffle();
         }
         return shuffled[index++];
     }
